@@ -9,7 +9,7 @@ rede_social = {
 }
 
 def adicionar_pessoa(nome):
-    rede_social["nome"] = {"seguidores":set(),"seguindo":set()}
+    rede_social[nome] = {"seguidores":set(),"seguindo":set()}
 
 def seguir(usuario, alvo):
     valor_usuario = usuario in rede_social #retorna true ou false
