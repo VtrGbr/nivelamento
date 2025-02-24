@@ -1,0 +1,5 @@
+Alunos bolsistas: 
+Nome: Joao, idade: 22 e curso: farmacia
+Nome: Tenorio, idade: 20 e curso: Engenharia de computacao
+Curso de cada aluno:
+Nome: Joao, curso: farmaciaNome: Gabriel, curso: Educacao fisicaNome: Enzo, curso: MedicinaNome: Tenorio, curso: Engenharia de computacao
