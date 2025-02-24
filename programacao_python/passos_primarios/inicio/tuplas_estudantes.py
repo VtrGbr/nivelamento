@@ -11,16 +11,20 @@ estudantes=[
 #Funções: saber quais sao bolsistas, dizer o curso de cada um, a maior idade
 
 def bolsistas(estudantes):
+    resultado = ""
     for estudante in estudantes:
         if estudante[3] == "sim":
-            print(f"Nome: {estudante[0]}, idade: {estudante[1]} e curso: {estudante[4]}")
-
+            resultado+=f"Nome: {estudante[0]}, idade: {estudante[1]} e curso: {estudante[4]}\n"
+    return resultado
 def cursos(estudantes):
+    resultado = ""
     for estudante in estudantes:
-        print(f"Nome: {estudante[0]}, curso: {estudante[4]}")
+        resultado+=f"Nome: {estudante[0]}, curso: {estudante[4]}"
+    return resultado
 
 def maior_idade(estudantes):
     maior = 0
+    resultado = ""
     nome_mais_velho = ""
     for estudante in estudantes:
         if estudante[1] > maior:
@@ -28,12 +32,12 @@ def maior_idade(estudantes):
             nome_mais_velho = estudante[0]
     
 
-    print(f"Nome: {nome_mais_velho}, idade: {maior}")
+    resultado+=f"Nome: {nome_mais_velho}, idade: {maior}"
 
-print("Bolsistas: ")
-bolsistas(estudantes)
-print("Cursos: ")
-cursos(estudantes)
-print("Pessoa mais velha: ")
-maior_idade(estudantes)
+#print("Bolsistas: ")
+#bolsistas(estudantes)
+#print("Cursos: ")
+#cursos(estudantes)
+#print("Pessoa mais velha: ")
+#maior_idade(estudantes)
     
