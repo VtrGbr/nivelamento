@@ -1,0 +1,10 @@
+maindec:
+1.Adicionei as operações para o jump(tipo J) e o tipo i
+2. Adicionei o Jump em controls
+
+riscvsingle:
+1. PCSrc não estava declarado explicitamente.
+
+extend:
+1. Tinha apenas 2 casos, sendo que faltavam o caso '00' e '10'
+2. Adicionei esses casos
