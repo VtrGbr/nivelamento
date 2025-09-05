@@ -16,5 +16,5 @@ O processador foi escrito em Verilog e é capaz de executar um conjunto base de 
 ### Disciplina
 
 * **Nome da Disciplina:** Organização e Arquitetura de Computadores
-* **Instituição:** [UFAL]
+* **Instituição:** UFAL
 * **Data:** Setembro de 2025
