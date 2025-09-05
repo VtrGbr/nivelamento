@@ -37,7 +37,7 @@ module riscvsingle(input  logic        clk, reset,
                ALUSrc, RegWrite, Jump,
                ImmSrc, ALUControl);
   datapath dp(clk, reset, ResultSrc, PCSrc,
-              ALUSrc, RegWrite,
+              ALUSrc, Jump,RegWrite,
               ImmSrc, ALUControl,
               Zero, PC, Instr,
               ALUResult, WriteData, ReadData);
@@ -141,7 +141,7 @@ endmodule
 
 module datapath(input  logic        clk, reset,
                 input  logic [1:0]  ResultSrc, 
-                input  logic        PCSrc, ALUSrc,
+                input  logic        PCSrc, ALUSrc,Jump, //Adicionei o jump
                 input  logic        RegWrite,
                 input  logic [1:0]  ImmSrc,
                 input  logic [2:0]  ALUControl,
@@ -155,13 +155,24 @@ module datapath(input  logic        clk, reset,
   logic [31:0] ImmExt;
   logic [31:0] SrcA, SrcB;
   logic [31:0] Result;
+  logic [31:0] PCBranchOrSeq; // FIO INTERMEDIÁRIO para o resultado do 1º MUX
 
   // next PC logic
   flopr #(32) pcreg(clk, reset, PCNext, PC); 
   adder       pcadd4(PC, 32'd4, PCPlus4); //pc + 4.
   adder       pcaddbranch(PC, ImmExt, PCTarget);
-  mux2 #(32)  pcmux(PCPlus4, PCTarget, PCSrc, PCNext);
- 
+
+  //1. Mux que decidirá se ele será pc + 4 ou branch
+  //Sua saída será o nosso fio intermediario
+  mux2 #(32)  pcmux(PCPlus4, PCTarget, PCSrc, PCBranchOrSeq); // Isso so funciona para beq, não ta incluindo o jal, falta  um mux pro jump
+
+
+ /*Quando o jump é acionado o branch é zero, logo a operação de jump não vai ser executada, temos que corrigir isto*/
+    // 2. O segundo MUX (pcjump) faz a decisão FINAL.
+   // Se Jump=1, ele seleciona o alvo do salto (PCTarget).
+  //  Senão (Jump=0), ele usa o que foi decidido pelo primeiro MUX (PCBranchOrSeq). 
+  mux2 #(32)  pcjump(PCBranchOrSeq,PCTarget,Jump,PCNext);
+  
   // register file logic
   regfile     rf(clk, RegWrite, Instr[19:15], Instr[24:20], 
                  Instr[11:7], Result, SrcA, WriteData);
