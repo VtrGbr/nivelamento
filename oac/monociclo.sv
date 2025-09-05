@@ -37,7 +37,7 @@ module riscvsingle(input  logic        clk, reset,
                ALUSrc, RegWrite, Jump,
                ImmSrc, ALUControl);
   datapath dp(clk, reset, ResultSrc, PCSrc,
-              ALUSrc, Jump,RegWrite,
+              ALUSrc, Jump,RegWrite, // \Adicionei o Jump
               ImmSrc, ALUControl,
               Zero, PC, Instr,
               ALUResult, WriteData, ReadData);
