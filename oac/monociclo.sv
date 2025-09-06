@@ -53,7 +53,7 @@ endmodule
     A partir disso ele vai dizer como cada sinal deve sair
 */
 
-
+//Sem alteração
 module controller(input  logic [6:0] op,
                   input  logic [2:0] funct3,
                   input  logic       funct7b5,
@@ -72,7 +72,7 @@ module controller(input  logic [6:0] op,
              ALUSrc, RegWrite, Jump, ImmSrc, ALUOp);
   aludec  ad(op[5], funct3, funct7b5, ALUOp, ALUControl);
 
-  assign PCSrc = Branch & Zero | Jump; // Aqui devemos abranger o jump tambem
+  assign PCSrc = Branch & Zero;
 endmodule
 
 /*
@@ -91,7 +91,7 @@ module maindec(input  logic [6:0] op,
   logic [10:0] controls;
 
   assign {RegWrite, ImmSrc, ALUSrc, MemWrite,
-          ResultSrc, Branch, ALUOp,Jump} = controls;
+          ResultSrc, Branch, ALUOp,Jump} = controls; //Adicionei o jump
 
   always_comb
     case(op)
@@ -146,7 +146,7 @@ endmodule
 	Temos os mux's, registradores e a ULA
 */
 
-//Talvez precise ser alterado
+
 module datapath(input  logic        clk, reset,
                 input  logic [1:0]  ResultSrc, 
                 input  logic        PCSrc, ALUSrc,Jump, //Adicionei o jump
