@@ -19,4 +19,5 @@ adicionar um novo mux para saber quando vai ser um branch(beq) e quando vai ser 
 2. Adicionei um mux "pcjump" para que ele decida se ele vai mandar A
     branch ou o valor do jump, sendo o "Jump" o seletor desse mux
 3. Na declaração do datapath eu coloquei o Jump
+4. Substuir o 32'b0 por pc + 4
 
