@@ -3,6 +3,7 @@
 /*
 Função de maior "nível", ele conecta o processador risc as memorias (instrução e dados)
 */
+//Não precisa de alteração
 module top(input  logic        clk, reset, 
            output logic [31:0] WriteData, DataAdr, 
            output logic        MemWrite);
@@ -17,10 +18,14 @@ module top(input  logic        clk, reset,
 endmodule
 
 
+
+
 /*
 	Aqui está o processador propriamente dito. Divide em duas partes, o datapath e controle
     Ele recebe a instrução da memória (Instr) e a passa para o datapath e para o controle. O controle gera sinais de controle que dizem ao datapath o que fazer com essa instrução (somar, ler da memória, desviar, etc.).
 */
+
+//Não precisa mais alterar
 module riscvsingle(input  logic        clk, reset,
                    output logic [31:0] PC,
                    input  logic [31:0] Instr,
@@ -48,6 +53,7 @@ endmodule
     A partir disso ele vai dizer como cada sinal deve sair
 */
 
+
 module controller(input  logic [6:0] op,
                   input  logic [2:0] funct3,
                   input  logic       funct7b5,
@@ -66,7 +72,7 @@ module controller(input  logic [6:0] op,
              ALUSrc, RegWrite, Jump, ImmSrc, ALUOp);
   aludec  ad(op[5], funct3, funct7b5, ALUOp, ALUControl);
 
-  assign PCSrc = Branch & Zero;
+  assign PCSrc = Branch & Zero | Jump; // Aqui devemos abranger o jump tambem
 endmodule
 
 /*
@@ -94,8 +100,8 @@ module maindec(input  logic [6:0] op,
       7'b0100011: controls = 11'b0_01_1_1_00_0_00_0; // sw
       7'b0110011: controls = 11'b1_xx_0_0_00_0_10_0; // R-type 
       7'b1100011: controls = 11'b0_10_0_0_00_1_01_0; // beq
-      7'b0010011: controls = 11'b1_00_1_0_0_0_10_0;//Tipo I  b1_00_1_0_00_0_10_0
-      7'b1101111: controls = 11'b1_11_x_0_10_0_xx_1;//Tipo jump
+      7'b0010011: controls = 11'b1_00_1_0_00_0_10_0;//Tipo I  b1_00_1_0_00_0_10_0
+      7'b1101111: controls = 11'b1_11_0_0_10_0_00_1;//Tipo jump
       default:    controls = 11'bx_xx_x_x_xx_x_xx_x; // non-implemented instruction
     endcase
 endmodule
@@ -109,6 +115,7 @@ endmodule
     
 */
 
+//Sem alteração
 module aludec(input  logic       opb5,
               input  logic [2:0] funct3,
               input  logic       funct7b5, 
@@ -139,6 +146,7 @@ endmodule
 	Temos os mux's, registradores e a ULA
 */
 
+//Talvez precise ser alterado
 module datapath(input  logic        clk, reset,
                 input  logic [1:0]  ResultSrc, 
                 input  logic        PCSrc, ALUSrc,Jump, //Adicionei o jump
@@ -186,6 +194,7 @@ endmodule
 
 //Banco de registradores
 
+//Sem alteração
 module regfile(input  logic        clk, 
                input  logic        we3, 
                input  logic [ 4:0] a1, a2, a3, 
